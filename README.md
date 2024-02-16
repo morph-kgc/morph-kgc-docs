@@ -2,7 +2,7 @@
 
 This documentation is built using [Material for MkDocs](https://github.com/squidfunk/mkdocs-material).
 
-## Deployment
+## Deployment ⚙️
 
 The documentation is hosted in [Read the Docs](https://morph-kgc.readthedocs.io). Commits to the main branch automatically build the documentation and deploy it.
 
