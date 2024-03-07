@@ -262,6 +262,34 @@ The supported hierarchical files formats are **[XML](https://www.w3.org/TR/xml/)
 
 Morph-KGC uses **[XPath 3.0](https://www.w3.org/TR/xpath30/)** to query XML files and **[JSONPath](https://goessner.net/articles/JsonPath/)** to query JSON files. The specific JSONPath syntax supported by Morph-KGC can be consulted __[here](https://github.com/zhangxianbing/jsonpath-python#jsonpath-syntax)__.
 
+## Docker
+
+You can also use Morph-KGC with the provided [Dockerfile](https://github.com/morph-kgc/morph-kgc/blob/main/Dockerfile).
+
+### Image Building
+
+Build the container as follows:
+
+```bash
+docker build -t morph-kgc .
+```
+
+To include optional dependencies, use the `optional_dependencies` option as follows:
+
+```bash
+docker build -t morph-kgc --build-arg optional_dependencies="sqlite,kafka" .
+```
+
+### Execution
+
+The container is designed to mount a local directory containing the required files. To run the container, use the following command, replacing `$(pwd)/files` with the path to the local directory containing your files:
+
+```bash
+docker run -v $(pwd)/files:/app/files morph-kgc files/config.ini
+```
+
+This will mount the local directory to `/app/files` within the container and execute the application using the provided configuration file.
+
 ## Mappings
 
 Morph-KGC is compliant with the W3C Recommendation **[RDB to RDF Mapping Language (R2RML)](https://www.w3.org/TR/r2rml/)** and the **[RDF Mapping Language (RML)](https://w3id.org/rml/core/spec)**. You can refer to their associated specifications to consult the syntaxes.
