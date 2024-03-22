@@ -6,7 +6,9 @@
 
 ### Journals
 
-- **[Morph-KGC: Scalable knowledge graph materialization with mapping partitions](https://content.iospress.com/download/semantic-web/sw223135?id=semantic-web%2Fsw223135)**  
+- **[Declarative generation of RDF-star graphs from heterogeneous data](https://www.doi.org/10.3233/SW-243602)**  
+**Semantic Web Journal** | **2024** | Julián Arenas-Guerrero, Ana Iglesias-Molina, David Chaves-Fraga, Daniel Garijo, Oscar Corcho, Anastasia Dimou
+- **[Morph-KGC: Scalable knowledge graph materialization with mapping partitions](https://www.doi.org/10.3233/SW-223135)**  
 **Semantic Web Journal** | **2024** | Julián Arenas-Guerrero, David Chaves-Fraga, Jhon Toledo, María S. Pérez, Oscar Corcho
 
 ### Conferences
