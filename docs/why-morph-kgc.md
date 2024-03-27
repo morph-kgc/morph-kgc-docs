@@ -33,7 +33,7 @@ Morph-KGC is available under the permissive **[Apache License 2.0](https://githu
 - [**kglab** - Graph Data Science](https://github.com/DerwenAI/kglab).
 
 ## In Education
-- [Universidad Nacional del Comahue](https://www.fi.uncoma.edu.ar/wp-content/uploads/2024/02/CursoPosgrado-Grafos-de-Conocimiento-Programa2023-1.pdf).
-- [Universidad Politécnica de Madrid](https://github.com/FacultadInformatica-LinkedData).
+- [Universidad Nacional del Comahue](https://www.fi.uncoma.edu.ar/wp-content/uploads/2024/02/CursoPosgrado-Grafos-de-Conocimiento-Programa2023-1.pdf) (Argentina).
+- [Universidad Politécnica de Madrid](https://github.com/FacultadInformatica-LinkedData) (Spain).
 
 ![OEG](assets/logo-oeg.png){ width="150" align=left } ![UPM](assets/logo-upm.png){ width="161" align=right }
