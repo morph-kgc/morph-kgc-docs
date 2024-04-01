@@ -6,7 +6,7 @@
 
 ### Journals
 
-- **[An RML-FNML module for Python user-defined functions in Morph-KGC]( )**  
+- **[An RML-FNML module for Python user-defined functions in Morph-KGC](https://doi.org/10.1016/j.softx.2024.101709)**  
 **SoftwareX** | **2024** | Julián Arenas-Guerrero, Paola Espinoza-Arias, José Antonio Bernabé-Diaz, Prashant Deshmukh, José Luis Sánchez-Fernández, Oscar Corcho
 - **[Declarative generation of RDF-star graphs from heterogeneous data](https://www.doi.org/10.3233/SW-243602)**  
 **Semantic Web Journal** | **2024** | Julián Arenas-Guerrero, Ana Iglesias-Molina, David Chaves-Fraga, Daniel Garijo, Oscar Corcho, Anastasia Dimou
