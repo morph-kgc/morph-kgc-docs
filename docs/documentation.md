@@ -218,7 +218,7 @@ Example **`db_url`** values (see **[here](https://docs.sqlalchemy.org/en/20/core
 - **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymssql://username:password@host:port/db_name_
 - **[MariaDB](https://mariadb.org/)**: _mariadb+pymysql://username:password@host:port/db_name_
 - **[SQLite](https://www.sqlite.org)**: _sqlite:///db_path/db_name.db_
-- **[Databricks](https://www.databricks.com/)**: _databricks+connector://token:<databricks_token>@<databricks_host>:443/<database_or_schema_name>_
+- **[Databricks](https://www.databricks.com/)**: _databricks+connector://token:<databricks_token>@<databricks_host>:443/<db_or_schema_name>_
 - **[Neo4j](https://neo4j.com/)**: _neo4j://host:port@username:password/db_name_
 - **[Kùzu](https://kuzudb.com)**: _path_to_db_directory_
 
