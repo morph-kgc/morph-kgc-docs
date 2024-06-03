@@ -4,7 +4,7 @@
 Morph-KGC was created by **[Julián Arenas-Guerrero](https://github.com/ArenasGuerreroJulian/)** in the **[Ontology Engineering Group](https://oeg.fi.upm.es)** at **[Universidad Politécnica de Madrid](https://www.upm.es/internacional)**.
 
 #### How can I learn R2RML, RML, RML-star, RML-FNML or YARRRML?
-The best starting point is the **[R2RML Recommendation](https://www.w3.org/TR/r2rml/)**. After that, you can continue with the **[RML-Core](https://w3id.org/rml/core/spec)**, **[RML-star](https://w3id.org/rml/star/spec)**, **[RML-FNML](https://w3id.org/rml/fnml/spec) or [YARRRML](https://rml.io/yarrrml/spec/)** specifications.
+The best starting point is the **[R2RML Recommendation](https://www.w3.org/TR/r2rml/)**. After that, you can continue with the **[RML-Core](https://w3id.org/rml/core/spec)**, **[RML-star](https://w3id.org/rml/star/spec)**, **[RML-FNML](https://w3id.org/rml/fnml/spec)** or **[YARRRML](https://rml.io/yarrrml/spec/)** specifications.
 
 #### I have some question related to R2RML, RML, RML-star, RML-FNML or YARRRML
 The best place to get the answer is at **[Discussions for RML questions](https://github.com/kg-construct/rml-questions/discussions)**.
