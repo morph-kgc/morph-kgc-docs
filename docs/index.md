@@ -70,5 +70,6 @@ If you used Morph-KGC in your work, please cite the **[SoftwareX](https://www.sc
   publisher = {IOS Press},
   doi       = {10.3233/SW-223135}
 }
+```
 
 ![OEG](assets/logo-oeg.png){ width="150" align=left } ![UPM](assets/logo-upm.png){ width="161" align=right }
