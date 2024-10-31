@@ -54,7 +54,7 @@ import morph_kgc
 config = """
             [DataSource1]
             mappings: /path/to/mapping/mapping_file.rml.ttl
-            db_url: mysql+pymysql://user:password@localhost:3306/db_name
+            db_url: mysql+pymysrml://user:password@localhost:3306/db_name
          """
 ```
 
@@ -156,7 +156,7 @@ output_file: knowledge-graph.nt
 
 [DataSource1]
 mappings: ${mappings_dir}/mapping_file.rml.ttl
-db_url: mysql+pymysql://user:password@localhost:3306/db_name
+db_url: mysql+pymysrml://user:password@localhost:3306/db_name
 ```
 
 The parameters of the sections in the **[INI file](https://en.wikipedia.org/wiki/INI_file)** are explained below.
@@ -212,11 +212,11 @@ The properties to be specified for **relational databases** are listed below. Al
 
 Example **`db_url`** values (see **[here](https://docs.sqlalchemy.org/en/20/core/engines.html#database-urls)** all the information):
 
-- **[MySQL](https://www.mysql.com/)**: _mysql+pymysql://username:password@host:port/db_name_
+- **[MySQL](https://www.mysql.com/)**: _mysql+pymysrml://username:password@host:port/db_name_
 - **[PostgreSQL](https://www.postgresql.org/)**: _postgresql+psycopg://username:password@host:port/db_name_
 - **[Oracle](https://www.oracle.com/database/)**: _oracle+cx_oracle://username:password@host:port/db_name_
-- **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymssql://username:password@host:port/db_name_
-- **[MariaDB](https://mariadb.org/)**: _mariadb+pymysql://username:password@host:port/db_name_
+- **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymssrml://username:password@host:port/db_name_
+- **[MariaDB](https://mariadb.org/)**: _mariadb+pymysrml://username:password@host:port/db_name_
 - **[SQLite](https://www.sqlite.org)**: _sqlite:///db_path/db_name.db_
 - **[Databricks](https://www.databricks.com/)**: _databricks+connector://token:<databricks_token>@<databricks_host>:443/<db_or_schema_name>_
 - **[Neo4j](https://neo4j.com/)**: _neo4j://host:port@username:password/db_name_
@@ -317,7 +317,7 @@ An **[RML-FNML](https://w3id.org/rml/fnml/spec)** mapping calling this functions
 <#TM1>
     rml:logicalSource [
         rml:source "test/rml-fnml/udf/student.csv";
-        rml:referenceFormulation ql:CSV;
+        rml:referenceFormulation rml:CSV;
     ];
     rml:subjectMap [
         rml:template "http://example.com/{Name}";
@@ -325,15 +325,15 @@ An **[RML-FNML](https://w3id.org/rml/fnml/spec)** mapping calling this functions
     rml:predicateObjectMap [
         rml:predicate foaf:name;
         rml:objectMap [
-            fnml:execution <#Execution>;
+            rml:execution <#Execution>;
         ];
     ].
 
 <#Execution>
-    fnml:function ex:toUpperCase;
-    fnml:input [
-        fnml:parameter grel:valueParam;
-        fnml:valueMap [
+    rml:function ex:toUpperCase;
+    rml:input [
+        rml:parameter grel:valueParam;
+        rml:valueMap [
             rml:reference "Name";
         ];
     ].
@@ -437,7 +437,7 @@ Morph-KGC supports the definition of in-memory logical sources (**[Pandas DataFr
                 ];
             ];   
         ];
-        rml:referenceFormulation ql:DataFrame;
+        rml:referenceFormulation rml:DataFrame;
     ];
     rml:subjectMap [
         rml:template "http://example.com/data/user{Id}";
