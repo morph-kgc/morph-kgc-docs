@@ -177,7 +177,7 @@ The execution of Morph-KGC can be **tuned** via the **`CONFIGURATION`** section 
 | **`safe_percent_encoding`**             | Set of ASCII characters that should not be percent encoded. All characters are encoded by default.                                                                                                                                           | **Example:** _:/_<br>**Default:**                                                                                                                                       |
 | **`udfs`**                              | File with Python user-defined functions to be called from _[RML-FNML](https://w3id.org/rml/fnml/spec)_.                                                                                                                            | **Default:**                                                                                                                                                            |
 | **`mapping_partitioning`**              | [Mapping partitioning](https://content.iospress.com/download/semantic-web/sw223135?id=semantic-web%2Fsw223135) algorithm to use. Mapping partitioning can also be disabled.                                                                  | **Valid:** _PARTIAL-AGGREGATIONS_, _MAXIMAL_, _no_, _false_, _off_, _0_<br>**Default:** _PARTIAL-AGGREGATIONS_                                                          |
-| **`infer_sql_datatypes`**               | Infer datatypes for relational databases. If a [datatypeable term map](https://www.w3.org/TR/r2rml/#dfn-datatypeable-term-map) has a _[rr:datatype](https://www.w3.org/ns/r2rml#datatype)_ property, then the datatype will not be inferred. | **Valid:** _yes_, _no_, _true_, _false_, _on_, _off_, _1_, _0_<br>**Default:** _no_                                                                                     |
+| **`infer_sql_datatypes`**               | Infer datatypes for relational databases. If a [datatypeable term map](https://www.w3.org/TR/r2rml/#dfn-datatypeable-term-map) has a _[rml:datatype](https://www.w3.org/ns/r2rml#datatype)_ property, then the datatype will not be inferred. | **Valid:** _yes_, _no_, _true_, _false_, _on_, _off_, _1_, _0_<br>**Default:** _no_                                                                                     |
 | **`number_of_processes`**               | The number of processes to use. If _1_, Morph-KGC will use sequential processing (minimizing memory consumption), otherwise parallel processing is used (minimizing execution time).                                                         | **Default:** _2 * number of CPUs in the system_                                                                                                                         |
 | **`logging_level`**                     | Sets the [level](https://docs.python.org/3/library/logging.html#logging-levels) of the log messages to show.                                                                                                                                 | **Valid:** _DEBUG_, _INFO_, _WARNING_, _ERROR_, _CRITICAL_, _NOTSET_<br>**Default:** _INFO_                                                                             |
 | **`logging_file`**                      | If not provided, log messages will be redirected to _stdout_. If a file path is provided, log messages will be written to the file.                                                                                                          | **Default:**                                                                                                                                                            |
@@ -319,12 +319,12 @@ An **[RML-FNML](https://w3id.org/rml/fnml/spec)** mapping calling this functions
         rml:source "test/rml-fnml/udf/student.csv";
         rml:referenceFormulation ql:CSV;
     ];
-    rr:subjectMap [
-        rr:template "http://example.com/{Name}";
+    rml:subjectMap [
+        rml:template "http://example.com/{Name}";
     ];
-    rr:predicateObjectMap [
-        rr:predicate foaf:name;
-        rr:objectMap [
+    rml:predicateObjectMap [
+        rml:predicate foaf:name;
+        rml:objectMap [
             fnml:execution <#Execution>;
         ];
     ].
@@ -349,22 +349,22 @@ Morph-KGC supports the new **[RML-star](https://w3id.org/rml/star/spec)** mappin
 <#TM1> a rml:NonAssertedTriplesMap;
     rml:logicalSource ex:ConfidenceSource;
     rml:subjectMap [
-        rr:template "http://example.com/{entity}";
+        rml:template "http://example.com/{entity}";
     ];
-    rr:predicateObjectMap [
-        rr:predicate rdf:type;
+    rml:predicateObjectMap [
+        rml:predicate rdf:type;
         rml:objectMap [
-            rr:template "http://example.com/{class}";
+            rml:template "http://example.com/{class}";
         ];
     ].
 
-<#TM2> a rr:TriplesMap;
+<#TM2> a rml:TriplesMap;
     rml:logicalSource ex:ConfidenceSource;
     rml:subjectMap [
         rml:quotedTriplesMap <#TM1>;
     ];
-    rr:predicateObjectMap [
-        rr:predicate ex:confidence;
+    rml:predicateObjectMap [
+        rml:predicate ex:confidence;
         rml:objectMap [
             rml:reference "confidence";
         ];
@@ -404,14 +404,14 @@ In addition to **[R2RML views](https://www.w3.org/TR/r2rml/#r2rml-views)**, Morp
             WHERE "Lan" = 'EN';
         """
     ];
-    rr:subjectMap [
-        rr:template "http://example.com/{Code}";
+    rml:subjectMap [
+        rml:template "http://example.com/{Code}";
     ];
-    rr:predicateObjectMap [
-        rr:predicate rdfs:label;
-        rr:objectMap [
-            rr:column "Name";
-            rr:language "en";
+    rml:predicateObjectMap [
+        rml:predicate rdfs:label;
+        rml:objectMap [
+            rml:reference "Name";
+            rml:language "en";
         ];
     ].
 ```
@@ -439,13 +439,13 @@ Morph-KGC supports the definition of in-memory logical sources (**[Pandas DataFr
         ];
         rml:referenceFormulation ql:DataFrame;
     ];
-    rr:subjectMap [
-        rr:template "http://example.com/data/user{Id}";
+    rml:subjectMap [
+        rml:template "http://example.com/data/user{Id}";
     ];
-    rr:predicateObjectMap [
-        rr:predicate rdf:type;
-        rr:objectMap [
-            rr:constant ex:User;
+    rml:predicateObjectMap [
+        rml:predicate rdf:type;
+        rml:objectMap [
+            rml:constant ex:User;
         ];
     ].
 ```
