@@ -295,7 +295,7 @@ docker run -v $(pwd)/files:/app/files morph-kgc files/config.ini
 
 This will mount the local directory to `/app/files` within the container and execute the application using the provided configuration file.
 
-## Mappings
+## RML Reference
 
 Morph-KGC is compliant with the W3C Recommendation **[RDB to RDF Mapping Language (R2RML)](https://www.w3.org/TR/r2rml/)** and the **[RDF Mapping Language (RML)](https://w3id.org/rml/core/spec)**. You can refer to their associated specifications to consult the syntaxes.
 
