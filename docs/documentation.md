@@ -181,8 +181,6 @@ The execution of Morph-KGC can be **tuned** via the **`CONFIGURATION`** section 
 | **`number_of_processes`**               | The number of processes to use. If _1_, Morph-KGC will use sequential processing (minimizing memory consumption), otherwise parallel processing is used (minimizing execution time).                                                         | **Default:** _2 * number of CPUs in the system_                                                                                                                         |
 | **`logging_level`**                     | Sets the [level](https://docs.python.org/3/library/logging.html#logging-levels) of the log messages to show.                                                                                                                                 | **Valid:** _DEBUG_, _INFO_, _WARNING_, _ERROR_, _CRITICAL_, _NOTSET_<br>**Default:** _INFO_                                                                             |
 | **`logging_file`**                      | If not provided, log messages will be redirected to _stdout_. If a file path is provided, log messages will be written to the file.                                                                                                          | **Default:**                                                                                                                                                            |
-| **`oracle_client_lib_dir`**             | *lib_dir* directory specified in a call to *[cx_Oracle.init_oracle_client()](https://cx-oracle.readthedocs.io/en/latest/api_manual/module.html#cx_Oracle.init_oracle_client)*.                                                               | **Default:**                                                                                                                                                            |
-| **`oracle_client_config_dir`**          | *config_dir* directory specified in a call to *[cx_Oracle.init_oracle_client()](https://cx-oracle.readthedocs.io/en/latest/api_manual/module.html#cx_Oracle.init_oracle_client)*.                                                            | **Default:**                                                                                                                                                            |
 
 {==
 
@@ -214,9 +212,9 @@ Example **`db_url`** values (see **[here](https://docs.sqlalchemy.org/en/20/core
 
 - **[MySQL](https://www.mysql.com/)**: _mysql+pymysrml://username:password@host:port/db_name_
 - **[PostgreSQL](https://www.postgresql.org/)**: _postgresql+psycopg://username:password@host:port/db_name_
-- **[Oracle](https://www.oracle.com/database/)**: _oracle+cx_oracle://username:password@host:port/db_name_
 - **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymssrml://username:password@host:port/db_name_
 - **[MariaDB](https://mariadb.org/)**: _mariadb+pymysrml://username:password@host:port/db_name_
+- **[Oracle](https://www.oracle.com/database/)**: _oracle+oracledb://username:password@host:port[/db_name][?service_name=<service>[&key=value&key=value...]]_
 - **[SQLite](https://www.sqlite.org)**: _sqlite:///db_path/db_name.db_
 - **[Databricks](https://www.databricks.com/)**: _databricks+connector://token:<databricks_token>@<databricks_host>:443/<db_or_schema_name>_
 - **[Neo4j](https://neo4j.com/)**: _neo4j://host:port@username:password/db_name_
@@ -250,8 +248,6 @@ The supported DBMSs are **[MySQL](https://www.mysql.com/)**, **[PostgreSQL](http
 - **[SQLite](https://www.sqlite.org)**: `pip install morph-kgc[sqlite]`.
 - **[Neo4j](https://neo4j.com)**: `pip install morph-kgc[neo4j]`.
 - **[Kùzu](https://kuzudb.com)**: `pip install morph-kgc[kuzu]`.
-
-To run Morph-KGC with [Oracle](https://www.oracle.com/database/), the libraries of the [Oracle Client](https://www.oracle.com/database/technologies/instant-client/downloads.html) need to be loaded. See [cx_Oracle Installation](https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html) to install these libraries. See [cx_Oracle Initialization](https://cx-oracle.readthedocs.io/en/latest/user_guide/initialization.html) to setup the initialization of [Oracle](https://www.oracle.com/database/). Depending on the selected option, provide the properties `oracle_client_lib_dir` and `oracle_client_config_dir` in the [`CONFIGURATION`](https://morph-kgc.readthedocs.io/en/latest/documentation/#engine-configuration) section accordingly.
 
 ### Tabular Files
 
