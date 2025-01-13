@@ -54,7 +54,7 @@ import morph_kgc
 config = """
             [DataSource1]
             mappings: /path/to/mapping/mapping_file.rml.ttl
-            db_url: mysql+pymysrml://user:password@localhost:3306/db_name
+            db_url: mysql+pymysql://user:password@localhost:3306/db_name
          """
 ```
 
@@ -156,7 +156,7 @@ output_file: knowledge-graph.nt
 
 [DataSource1]
 mappings: ${mappings_dir}/mapping_file.rml.ttl
-db_url: mysql+pymysrml://user:password@localhost:3306/db_name
+db_url: mysql+pymysql://user:password@localhost:3306/db_name
 ```
 
 The parameters of the sections in the **[INI file](https://en.wikipedia.org/wiki/INI_file)** are explained below.
@@ -210,10 +210,10 @@ The properties to be specified for **relational databases** are listed below. Al
 
 Example **`db_url`** values (see **[here](https://docs.sqlalchemy.org/en/20/core/engines.html#database-urls)** all the information):
 
-- **[MySQL](https://www.mysql.com/)**: _mysql+pymysrml://username:password@host:port/db_name_
+- **[MySQL](https://www.mysql.com/)**: _mysql+pymysql://username:password@host:port/db_name_
 - **[PostgreSQL](https://www.postgresql.org/)**: _postgresql+psycopg://username:password@host:port/db_name_
-- **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymssrml://username:password@host:port/db_name_
-- **[MariaDB](https://mariadb.org/)**: _mariadb+pymysrml://username:password@host:port/db_name_
+- **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymssql://username:password@host:port/db_name_
+- **[MariaDB](https://mariadb.org/)**: _mariadb+pymysql://username:password@host:port/db_name_
 - **[Oracle](https://www.oracle.com/database/)**: _oracle+oracledb://username:password@host:port[/db_name][?service_name=<service>[&key=value&key=value...]]_
 - **[SQLite](https://www.sqlite.org)**: _sqlite:///db_path/db_name.db_
 - **[Databricks](https://www.databricks.com/)**: _databricks+connector://token:<databricks_token>@<databricks_host>:443/<db_or_schema_name>_
