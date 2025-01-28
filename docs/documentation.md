@@ -217,6 +217,7 @@ Example **`db_url`** values (see **[here](https://docs.sqlalchemy.org/en/20/core
 - **[Oracle](https://www.oracle.com/database/)**: _oracle+oracledb://username:password@host:port[/db_name][?service_name=<service>[&key=value&key=value...]]_
 - **[SQLite](https://www.sqlite.org)**: _sqlite:///db_path/db_name.db_
 - **[Databricks](https://www.databricks.com/)**: _databricks+connector://token:<databricks_token>@<databricks_host>:443/<db_or_schema_name>_
+- **[Snowflake](https://www.snowflake.com/)**: _snowflake://<user_login_name>:<password>@<account_name>_
 - **[Neo4j](https://neo4j.com/)**: _neo4j://host:port@username:password/db_name_
 - **[Kùzu](https://kuzudb.com)**: _path_to_db_directory_
 
