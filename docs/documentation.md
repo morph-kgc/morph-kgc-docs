@@ -216,7 +216,7 @@ Example **`db_url`** values (see **[here](https://docs.sqlalchemy.org/en/20/core
 - **[MariaDB](https://mariadb.org/)**: _mariadb+pymysql://username:password@host:port/db_name_
 - **[Oracle](https://www.oracle.com/database/)**: _oracle+oracledb://username:password@host:port[/db_name][?service_name=<service>[&key=value&key=value...]]_
 - **[SQLite](https://www.sqlite.org)**: _sqlite:///db_path/db_name.db_
-- **[Databricks](https://www.databricks.com/)**: _databricks+connector://token:<databricks_token>@<databricks_host>:443/<db_or_schema_name>_
+- **[Databricks](https://www.databricks.com/)**: _databricks://token:<access_token>@<host>?http_path=<http_path>&catalog=<catalog>&schema=<schema>_
 - **[Snowflake](https://www.snowflake.com/)**: _snowflake://<user_login_name>:<password>@<account_name>_
 - **[Neo4j](https://neo4j.com/)**: _neo4j://host:port@username:password/db_name_
 - **[Kùzu](https://kuzudb.com)**: _path_to_db_directory_
@@ -249,6 +249,8 @@ The supported DBMSs are **[MySQL](https://www.mysql.com/)**, **[PostgreSQL](http
 - **[SQLite](https://www.sqlite.org)**: `pip install morph-kgc[sqlite]`.
 - **[Neo4j](https://neo4j.com)**: `pip install morph-kgc[neo4j]`.
 - **[Kùzu](https://kuzudb.com)**: `pip install morph-kgc[kuzu]`.
+- **[Snowflake](https://www.snowflake.com/)**: `pip install morph-kgc[snowflake]`.
+- **[Databricks](https://www.databricks.com/)**: `pip install morph-kgc[databricks]`.
 
 ### Tabular Files
 
