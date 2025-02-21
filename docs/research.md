@@ -10,9 +10,9 @@
 **Knowledge-Based Systems** | **2025** | Julián Arenas-Guerrero, Oscar Corcho, María S. Pérez
 - **[An RML-FNML module for Python user-defined functions in Morph-KGC](https://www.sciencedirect.com/science/article/pii/S2352711024000803)**  
 **SoftwareX** | **2024** | Julián Arenas-Guerrero, Paola Espinoza-Arias, José Antonio Bernabé-Diaz, Prashant Deshmukh, José Luis Sánchez-Fernández, Oscar Corcho
-- **[Declarative generation of RDF-star graphs from heterogeneous data](https://www.doi.org/10.3233/SW-243602)**  
+- **[Declarative generation of RDF-star graphs from heterogeneous data](https://doi.org/10.3233/SW-243602)**  
 **Semantic Web Journal** | **2024** | Julián Arenas-Guerrero, Ana Iglesias-Molina, David Chaves-Fraga, Daniel Garijo, Oscar Corcho, Anastasia Dimou
-- **[Morph-KGC: Scalable knowledge graph materialization with mapping partitions](https://www.doi.org/10.3233/SW-223135)**  
+- **[Morph-KGC: Scalable knowledge graph materialization with mapping partitions](https://doi.org/10.3233/SW-223135)**  
 **Semantic Web Journal** | **2024** | Julián Arenas-Guerrero, David Chaves-Fraga, Jhon Toledo, María S. Pérez, Oscar Corcho
 
 ### Conferences
