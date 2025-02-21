@@ -6,6 +6,8 @@
 
 ### Journals
 
+- **[Intermediate triple table: A general architecture for virtual knowledge graphs](https://doi.org/10.1016/j.knosys.2025.113179)**  
+**Knowledge-Based Systems** | **2025** | Julián Arenas-Guerrero, Oscar Corcho, María S. Pérez
 - **[An RML-FNML module for Python user-defined functions in Morph-KGC](https://www.sciencedirect.com/science/article/pii/S2352711024000803)**  
 **SoftwareX** | **2024** | Julián Arenas-Guerrero, Paola Espinoza-Arias, José Antonio Bernabé-Diaz, Prashant Deshmukh, José Luis Sánchez-Fernández, Oscar Corcho
 - **[Declarative generation of RDF-star graphs from heterogeneous data](https://www.doi.org/10.3233/SW-243602)**  
