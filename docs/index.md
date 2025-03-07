@@ -9,7 +9,7 @@
 ## Features
 
 - User-friendly mappings with **[YARRRML](https://rml.io/yarrrml/spec/)**.
-- Transformation functions with **[RML-FNML](https://w3id.org/rml/fnml/spec)**, including **Python user-defined functions**.
+- Transformation functions with **[RML-FNML](https://w3id.org/rml/fnml/spec)**, including **Python UDFs**.
 - [RDF-star](https://w3c.github.io/rdf-star/cg-spec/2021-12-17.html) generation with **[RML-star](https://w3id.org/rml/star/spec)**.
 - **[RML views](https://2023.eswc-conferences.org/wp-content/uploads/2023/05/paper_Arenas-Guerrero_2023_Boosting.pdf)** over tabular data sources and [JSON](https://www.json.org) files.
 - Integration with **[RDFLib](https://rdflib.readthedocs.io)**, **[Oxigraph](https://pyoxigraph.readthedocs.io/en/latest/)** and [Kafka](https://kafka-python.readthedocs.io).
@@ -20,7 +20,7 @@
     - **Tabular files**: [CSV](https://en.wikipedia.org/wiki/Comma-separated_values), [TSV](https://en.wikipedia.org/wiki/Tab-separated_values), [Excel](https://www.microsoft.com/en-us/microsoft-365/excel), [Parquet](https://parquet.apache.org/documentation/latest/), [Feather](https://arrow.apache.org/docs/python/feather.html), [ORC](https://orc.apache.org/), [Stata](https://www.stata.com/), [SAS](https://www.sas.com), [SPSS](https://www.ibm.com/analytics/spss-statistics-software), [ODS](https://en.wikipedia.org/wiki/OpenDocument).
     - **Hierarchical files**: [JSON](https://www.json.org), [XML](https://www.w3.org/TR/xml/).
     - **In-memory data structures**: [Python Dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries), [DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html).
-    - **Cloud data lake solutions**: [Databricks](https://www.databricks.com/).
+    - **Cloud data lake solutions**: [Databricks](https://www.databricks.com/), [Snowflake](https://www.snowflake.com/).
     - **Property graph databases**: [Neo4j](https://neo4j.com/), [Kùzu](https://kuzudb.com).
 
 ## Organizations that Use Morph-KGC
