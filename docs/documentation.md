@@ -212,7 +212,7 @@ Example **`db_url`** values (see **[here](https://docs.sqlalchemy.org/en/20/core
 
 - **[MySQL](https://www.mysql.com/)**: _mysql+pymysql://username:password@host:port/db_name_
 - **[PostgreSQL](https://www.postgresql.org/)**: _postgresql+psycopg://username:password@host:port/db_name_
-- **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymsql://username:password@host:port/db_name_
+- **[Microsoft SQL Server](https://www.microsoft.com/sql-server)**: _mssql+pymssql://username:password@host:port/db_name_
 - **[MariaDB](https://mariadb.org/)**: _mariadb+pymysql://username:password@host:port/db_name_
 - **[Oracle](https://www.oracle.com/database/)**: _oracle+oracledb://username:password@host:port[/db_name][?service_name=<service>[&key=value&key=value...]]_
 - **[SQLite](https://www.sqlite.org)**: _sqlite:///db_path/db_name.db_
