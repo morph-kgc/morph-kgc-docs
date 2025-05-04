@@ -48,7 +48,7 @@ Morph-KGC can be used as a **library**, providing different methods to materiali
 
 The methods in the **API** accept the **config as a string or as the path to an INI file**.
 
-```Python
+``` py
 import morph_kgc
 
 config = """
@@ -64,7 +64,7 @@ config = """
 
 Materialize the knowledge graph to **[RDFLib](https://rdflib.readthedocs.io/en/stable/)**.
 
-```Python
+``` py
 # generate the triples and load them to an RDFLib graph
 
 graph = morph_kgc.materialize(config)
@@ -87,7 +87,7 @@ q_res = graph.query(' SELECT DISTINCT ?classes WHERE { ?s a ?classes } ')
 
 Materialize the knowledge graph to **[Oxigraph](https://pyoxigraph.readthedocs.io/en/latest/)**.
 
-```Python
+``` py
 # generate the triples and load them to Oxigraph
 
 graph = morph_kgc.materialize_oxigraph(config)
@@ -104,7 +104,7 @@ q_res = graph.query(' SELECT DISTINCT ?classes WHERE { ?s a ?classes } ')
 
 Materialize the knowledge graph to a Python **Set of triples**.
 
-```Python
+``` py
 # create a Python Set with the triples
 
 graph = morph_kgc.materialize_set(config)
@@ -121,7 +121,7 @@ print(len(graph))
 
 Materialize the knowledge graph to a **[Kafka](https://kafka-python.readthedocs.io)** topic. To use this method, ensure that the config file includes the `output_kafka_server` and `output_kafka_topic` parameters.
 
-```Python
+``` py
 # generate the triples and sent them to Kafka topic
 
 graph = morph_kgc.materialize_kafka(config)
@@ -302,7 +302,7 @@ Morph-KGC is compliant with the W3C Recommendation **[RDB to RDF Mapping Languag
 
 Declarative **transformation functions** are supported via **[RML-FNML](https://w3id.org/rml/fnml/spec)**. Morph-KGC comes with a subset of the **[GREL functions](http://users.ugent.be/~bjdmeest/function/grel.ttl#)** as **built-in functions** that can be directly used from the mappings. Python **user-defined functions** are additionally supported. A Python script with **user-defined functions** is provided to Morph-KGC via the `udfs` parameter. Decorators for these functions must be defined to link the **Python** parameters to the **FNML** parameters. An example of a **user-defined function**:
 
-```Python
+``` py
 @udf(
     fun_id='http://example.com/toUpperCase',
     text='http://users.ugent.be/~bjdmeest/function/grel.ttl#valueParam')
@@ -450,7 +450,7 @@ Morph-KGC supports the definition of in-memory logical sources (**[Pandas DataFr
 ```
 
 The above mappings can be executed from Python as follows:
-```Python
+``` py
 import morph_kgc
 import pandas as pd
 
