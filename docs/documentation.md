@@ -8,9 +8,9 @@ You can get quickly started with the tutorial in **[`Google Colaboratory`](https
 
 In the following we describe different ways in which you can install and use Morph-KGC.
 
-### PyPi
+### PyPI
 
-**[PyPi](https://pypi.org/project/morph-kgc/)** is the fastest way to install Morph-KGC:
+**[PyPI](https://pypi.org/project/morph-kgc/)** is the fastest way to install Morph-KGC:
 ```bash
 pip install morph-kgc
 ```
