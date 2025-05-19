@@ -38,6 +38,9 @@ theme:
       navigation.indexes
       toc.integrate
       toc.follow
+      content.code.copy
+      content.code.select
+      content.code.annotate
 
 extra:
   social:
