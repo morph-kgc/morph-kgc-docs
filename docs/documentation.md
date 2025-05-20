@@ -11,13 +11,13 @@ In the following we describe different ways in which you can install and use Mor
 ### PyPI
 
 **[PyPI](https://pypi.org/project/morph-kgc/)** is the fastest way to install Morph-KGC:
-```bash
+``` bash
 pip install morph-kgc
 ```
 
 Some data sources require additional dependencies. Check **[Advanced Setup](https://morph-kgc.readthedocs.io/en/latest/documentation/#advanced-setup)** for specific installation instructions or install all the dependencies:
 
-```bash
+``` bash
 pip install morph-kgc[all]
 ```
 
@@ -26,7 +26,7 @@ We recommend to use **[virtual environments](https://docs.python.org/3/library/v
 ### From Source
 
 You can also grab the latest source code from the **[GitHub repository](https://github.com/morph-kgc/morph-kgc)**:
-```bash
+``` bash
 pip install git+https://github.com/morph-kgc/morph-kgc.git
 ```
 
@@ -38,7 +38,7 @@ Morph-KGC uses an **[INI file](https://en.wikipedia.org/wiki/INI_file)** to conf
 
 To run the engine using the **command line** you just need to execute the following:
 
-```bash
+``` bash
 python3 -m morph_kgc path/to/config.ini
 ```
 
@@ -48,7 +48,7 @@ Morph-KGC can be used as a **library**, providing different methods to materiali
 
 The methods in the **API** accept the **config as a string or as the path to an INI file**.
 
-``` py
+``` python
 import morph_kgc
 
 config = """
@@ -64,7 +64,7 @@ config = """
 
 Materialize the knowledge graph to **[RDFLib](https://rdflib.readthedocs.io/en/stable/)**.
 
-``` py
+``` python
 # generate the triples and load them to an RDFLib graph
 
 graph = morph_kgc.materialize(config)
@@ -87,7 +87,7 @@ q_res = graph.query(' SELECT DISTINCT ?classes WHERE { ?s a ?classes } ')
 
 Materialize the knowledge graph to **[Oxigraph](https://pyoxigraph.readthedocs.io/en/latest/)**.
 
-``` py
+``` python
 # generate the triples and load them to Oxigraph
 
 graph = morph_kgc.materialize_oxigraph(config)
@@ -104,7 +104,7 @@ q_res = graph.query(' SELECT DISTINCT ?classes WHERE { ?s a ?classes } ')
 
 Materialize the knowledge graph to a Python **Set of triples**.
 
-``` py
+``` python
 # create a Python Set with the triples
 
 graph = morph_kgc.materialize_set(config)
@@ -121,8 +121,8 @@ print(len(graph))
 
 Materialize the knowledge graph to a **[Kafka](https://kafka-python.readthedocs.io)** topic. To use this method, ensure that the config file includes the `output_kafka_server` and `output_kafka_topic` parameters.
 
-``` py
-# generate the triples and sent them to Kafka topic
+``` python
+# generate the triples and send them to Kafka topic
 
 graph = morph_kgc.materialize_kafka(config)
 # or
@@ -147,7 +147,7 @@ The configuration of Morph-KGC is done via an **[INI file](https://en.wikipedia.
 
 Below is an example configuration file with one input relational source. In this case `DataSource1` is the only data source section, but other data sources can be considered by including additional sections. **[Here](https://github.com/morph-kgc/morph-kgc/blob/main/examples/configuration-file/default_config.ini)** you can find a configuration file which is more complete.
 
-```
+``` ini
 [DEFAULT]
 main_dir: ../testing
 
@@ -274,13 +274,13 @@ You can also use Morph-KGC with the provided [Dockerfile](https://github.com/mor
 
 Build the container as follows:
 
-```bash
+``` bash
 docker build -t morph-kgc .
 ```
 
 To include optional dependencies, use the `optional_dependencies` option as follows:
 
-```bash
+``` bash
 docker build -t morph-kgc --build-arg optional_dependencies="sqlite,kafka" .
 ```
 
@@ -302,7 +302,7 @@ Morph-KGC is compliant with the W3C Recommendation **[RDB to RDF Mapping Languag
 
 Declarative **transformation functions** are supported via **[RML-FNML](https://w3id.org/rml/fnml/spec)**. Morph-KGC comes with a subset of the **[GREL functions](http://users.ugent.be/~bjdmeest/function/grel.ttl#)** as **built-in functions** that can be directly used from the mappings. Python **user-defined functions** are additionally supported. A Python script with **user-defined functions** is provided to Morph-KGC via the `udfs` parameter. Decorators for these functions must be defined to link the **Python** parameters to the **FNML** parameters. An example of a **user-defined function**:
 
-``` py
+``` python
 @udf(
     fun_id='http://example.com/toUpperCase',
     text='http://users.ugent.be/~bjdmeest/function/grel.ttl#valueParam')
@@ -312,7 +312,7 @@ def to_upper_case(text):
 
 An **[RML-FNML](https://w3id.org/rml/fnml/spec)** mapping calling this functions would be:
 
-```ttl
+``` turtle
 <#TM1>
     rml:logicalSource [
         rml:source "test/rml-fnml/udf/student.csv";
@@ -344,7 +344,7 @@ The complete set of **built-in functions** can be consulted [here](https://githu
 
 Morph-KGC supports the new **[RML-star](https://w3id.org/rml/star/spec)** mapping language to generate **[RDF-star](https://w3c.github.io/rdf-star/cg-spec/2021-12-17.html)** knowledge graphs. **[RML-star](https://w3id.org/rml/star/spec)** introduces the **star map** class to generate **[RDF-star](https://w3c.github.io/rdf-star/cg-spec/2021-12-17.html)** triples. A star map can be either at the place of a subject map or an object map, generating **quoted triples** in either the subject or object positions. The _rml:embeddedTriplesMap_ property connects the star maps to the triples map that defines how the quoted triples will be generated. Triples map can be declared as _rml:NonAssertedTriplesMap_ if they are to be referenced from an embedded triples map, but are not supposed to generate asserted triples in the output **[RDF-star](https://w3c.github.io/rdf-star/cg-spec/2021-12-17.html)** graph. The following example from the **[RML-star specification](https://w3id.org/rml/star/spec)** uses a non-asserted triples map to generate quoted triples.
 
-```ttl
+``` turtle
 <#TM1> a rml:NonAssertedTriplesMap;
     rml:logicalSource ex:ConfidenceSource;
     rml:subjectMap [
@@ -374,7 +374,7 @@ Morph-KGC supports the new **[RML-star](https://w3id.org/rml/star/spec)** mappin
 
 **[YARRRML](https://rml.io/yarrrml/spec/)** is a human-friendly serialization of [RML](https://w3id.org/rml/core/spec) that uses [YAML](https://yaml.org/). Morph-KGC supports [YARRRML](https://rml.io/yarrrml/spec/), also for [RML-FNML](https://w3id.org/rml/fnml/spec) and [RML-star](https://w3id.org/rml/star). The mapping below shows a [YARRRML](https://rml.io/yarrrml/spec/) example.
 
-```yml
+``` yaml
 prefixes:
   foaf: http://xmlns.com/foaf/0.1/
   ex: http://example.com/
@@ -394,7 +394,7 @@ mappings:
 
 In addition to **[R2RML views](https://www.w3.org/TR/r2rml/#r2rml-views)**, Morph-KGC also supports **RML views** over tabular data (**[CSV](https://en.wikipedia.org/wiki/Comma-separated_values)** and **[Parquet](https://parquet.apache.org/documentation/latest/)** formats) and **[JSON](https://www.json.org)** files. RML views enable transformation functions, complex joins or mixed content using the **[SQL](https://duckdb.org/docs/sql/introduction)** query language. For instance, the following triples map takes as input a **[CSV](https://en.wikipedia.org/wiki/Comma-separated_values)** file and filters the data based on the language of some codes.
 
-```ttl
+``` turtle
 <#TM1>
     rml:logicalSource [
         rml:query """
@@ -421,7 +421,7 @@ Morph-KGC uses **[DuckDB](duckdb.org/)** to evaluate queries over tabular source
 
 Morph-KGC supports the definition of in-memory logical sources (**[Pandas DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)** and **[Python Dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)**) within RML using the **[SD Ontology](https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.8.0/index-en.html)**. The following **[RML](https://w3id.org/rml/core/spec)** rules show the transformation of a **[Pandas Dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)** to **[RDF](https://www.w3.org/TR/rdf11-concepts/)**.
 
-```ttl
+``` turtle
 @prefix sd: <https://w3id.org/okn/o/sd#>.
 
 <#TM1>
@@ -450,7 +450,7 @@ Morph-KGC supports the definition of in-memory logical sources (**[Pandas DataFr
 ```
 
 The above mappings can be executed from Python as follows:
-``` py
+``` python
 import morph_kgc
 import pandas as pd
 
