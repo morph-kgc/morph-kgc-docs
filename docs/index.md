@@ -45,7 +45,7 @@ The **documentation** is licensed under **[CC BY-SA 4.0](https://creativecommons
 
 If you used Morph-KGC in your work, please cite the **[SoftwareX](https://www.sciencedirect.com/science/article/pii/S2352711024000803)** or **[SWJ](https://www.doi.org/10.3233/SW-223135)** papers:
 
-```bib
+``` bib
 @article{arenas2024morph,
   title     = {{Morph-KGC: Scalable knowledge graph materialization with mapping partitions}},
   author    = {Arenas-Guerrero, Julián and Chaves-Fraga, David and Toledo, Jhon and Pérez, María S. and Corcho, Oscar},
