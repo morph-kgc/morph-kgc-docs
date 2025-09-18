@@ -43,20 +43,15 @@ The **documentation** is licensed under **[CC BY-SA 4.0](https://creativecommons
 
 ## Citing
 
-If you used Morph-KGC in your work, please cite the **[SoftwareX](https://www.sciencedirect.com/science/article/pii/S2352711024000803)** or **[SWJ](https://www.doi.org/10.3233/SW-223135)** papers:
+If you used pycottas in your work, please cite the **[ISWC paper](https://sferrada.com/publication/2025-iswc-arenas-guerrero-cottas/2025-iswc-arenas-guerrero-cottas.pdf)**:
 
 ``` bib
-@article{arenas2024morph,
-  title     = {{Morph-KGC: Scalable knowledge graph materialization with mapping partitions}},
-  author    = {Arenas-Guerrero, Julián and Chaves-Fraga, David and Toledo, Jhon and Pérez, María S. and Corcho, Oscar},
-  journal   = {Semantic Web},
-  year      = {2024},
-  volume    = {15},
-  number    = {1},
-  pages     = {1-20},
-  issn      = {2210-4968},
-  publisher = {IOS Press},
-  doi       = {10.3233/SW-223135}
+@inproceedings{arenas2025cottas,
+  title     = {{COTTAS: Columnar Triple Table Storage for Efficient and Compressed RDF Management}},
+  author    = {Arenas-Guerrero, Julián and Ferrada, Sebastián},
+  booktitle = {Proceedings of the 24th International Semantic Web Conference},
+  year      = {2025},
+  publisher = {Springer Nature Switzerland},
 }
 ```
 
