@@ -22,7 +22,7 @@
 
 ## Intellectual Property
 
-The source code of **Morph-KGC** is registered on the **Intellectual Property Registry of the Community of Madrid** under the reference _M-003951/2021_.
+The source code of **Morph-KGC** is registered on the **Intellectual Property Registry of the Community of Madrid** under Registration entry number _16 / 2021 / 7979_.
 
 ## Projects
 
