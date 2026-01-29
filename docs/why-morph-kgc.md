@@ -28,6 +28,7 @@ Morph-KGC is available under the permissive **[Apache License 2.0](https://githu
 - **[FAIR Cookbook](https://faircookbook.elixir-europe.org/content/recipes/interoperability/rdf-conversion.html)**.
 - **[Data2Services](https://d2s.semanticscience.org/docs/convert-rml)**.
 - [RDF, RML, YARRRML: A basic tutorial to create Linked Data from a relational database table](https://katharinabrunner.de/2022/03/rdf-rml-yarrrml-kglab-morph-kgc/).
+- [From Heterogeneous Data to Knowledge Graphs: RML-Based Data Ingestion with YARRRML](https://neonto.de/blog/heterogeneous-data-ingestion-knowledge-graphs/)
 
 ## Integrated In
 - [**kglab** - Graph Data Science](https://github.com/DerwenAI/kglab).
