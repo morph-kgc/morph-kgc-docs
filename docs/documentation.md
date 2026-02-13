@@ -155,7 +155,7 @@ main_dir: ../testing
 output_file: knowledge-graph.nt
 
 [DataSource1]
-mappings: ${mappings_dir}/mapping_file.rml.ttl
+mappings: ${main_dir}/mapping_file.rml.ttl
 db_url: mysql+pymysql://user:password@localhost:3306/db_name
 ```
 
