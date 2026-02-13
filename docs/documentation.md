@@ -39,7 +39,7 @@ Morph-KGC uses an **[INI file](https://en.wikipedia.org/wiki/INI_file)** to conf
 To run the engine using the **command line** you just need to execute the following:
 
 ``` bash
-python3 -m morph_kgc path/to/config.ini
+morph_kgc path/to/config.ini
 ```
 
 ### Library
