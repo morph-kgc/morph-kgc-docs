@@ -8,7 +8,7 @@ Morph-KGC relies on the usage of **[mapping partitioning](https://content.iospre
 
 ### W3C Compliance
 
-Morph-KGC adopts the **[W3C](https://www.w3.org/)** Recommendation **[R2RML](https://www.w3.org/TR/r2rml/)** mapping language to map relational databases to **[RDF](https://www.w3.org/TR/rdf11-concepts/)**. In addition, it supports **[RML-Core](https://w3id.org/rml/core/spec)**, **[RML-star](https://w3id.org/rml/star/spec)** (for **[RDF-star](https://w3c.github.io/rdf-star/cg-spec/2021-12-17.html)** generation) and **[RML-FNML](https://w3id.org/rml/fnml/spec)** (for data transformations), which are being further developed by the **[Knowledge Graph Construction W3C Community Group](https://www.w3.org/community/kg-construct/)**.
+Morph-KGC adopts the **[W3C](https://www.w3.org/)** Recommendation **[R2RML](https://www.w3.org/TR/r2rml/)** mapping language to map relational databases to **[RDF](https://www.w3.org/TR/rdf11-concepts/)**. In addition, it supports **[RML-Core](https://w3id.org/rml/core/spec)** and **[RML-FNML](https://w3id.org/rml/fnml/spec)** (for data transformations), which are being further developed by the **[Knowledge Graph Construction W3C Community Group](https://www.w3.org/community/kg-construct/)**. It also implements **[RML 1.2](https://w3id.org/rml/core/spec)**, which aligns RML with the **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)** triple terms, reifying triples and base direction.
 
 ### Usability
 
@@ -16,7 +16,7 @@ Morph-KGC supports **[YARRRML](https://rml.io/yarrrml/spec/)**, a user-friendly 
 
 ### Reliability
 
-Morph-KGC is being used for all our knowledge graph construction projects at the **[Ontology Engineering Group](https://oeg.fi.upm.es/)**, and other organizations have adopted it as well for their **[RDF](https://www.w3.org/TR/rdf11-concepts/)** and **[RDF-star](https://w3c.github.io/rdf-star/cg-spec/2021-12-17.html)** materialization pipelines. This is why we put strong emphasis in keeping it **stable**, with **solid** releases. The engine is under **[continuous integration](https://github.com/morph-kgc/morph-kgc/actions)** using **[R2RML test cases](https://www.w3.org/2001/sw/rdb2rdf/test-cases/)**, **[RML test cases](https://github.com/kg-construct/rml-core/tree/main/test-cases)** and **[RML-star test cases](https://github.com/kg-construct/rml-star/tree/main/test-cases)**, in addition to more complex ones.
+Morph-KGC is being used for all our knowledge graph construction projects at the **[Ontology Engineering Group](https://oeg.fi.upm.es/)**, and other organizations have adopted it as well for their **[RDF](https://www.w3.org/TR/rdf11-concepts/)** materialization pipelines. This is why we put strong emphasis in keeping it **stable**, with **solid** releases. The engine is under **[continuous integration](https://github.com/morph-kgc/morph-kgc/actions)** using **[R2RML test cases](https://www.w3.org/2001/sw/rdb2rdf/test-cases/)** and **[RML test cases](https://github.com/kg-construct/rml-core/tree/main/test-cases)**, along with its own suites for **[RML 1.2](https://w3id.org/rml/core/spec)**, RML-FNML, RML views, in-memory sources and geospatial files, in addition to more complex ones.
 
 ### Free & Open Source
 
