@@ -10,10 +10,10 @@ The best starting point is the **[R2RML Recommendation](https://www.w3.org/TR/r2
 The best place to get the answer is at **[Discussions for RML questions](https://github.com/kg-construct/rml-questions/discussions)**.
 
 #### What happened to RML-star?
-The quoted triples of **RML-star** have been superseded by the triple terms and reifying triples of **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)**. Morph-KGC now generates them with the **[RML 1.2](https://morph-kgc.readthedocs.io/en/latest/documentation/#rml-12)** constructs _rml:tripleTermMap_, _rml:NonAssertedTriplesMap_ and _rml:reifyingMap_.
+The quoted triples of **RML-star** have been superseded by the triple terms and reifying triples of **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)**. Morph-KGC now generates them with the **[RML 1.2](https://morph-kgc.readthedocs.io/en/latest/rml/#triple-terms-and-reification)** constructs _rml:tripleTermMap_, _rml:NonAssertedTriplesMap_ and _rml:reifyingMap_.
 
 #### Why does `materialize` fail on a mapping with triple terms?
-**[RDFLib](https://rdflib.readthedocs.io/en/stable/)** 7.x reads neither triple terms nor directional language-tagged strings. Materialize such mappings with `materialize_set`, or write the knowledge graph to a file. See the **[RML 1.2](https://morph-kgc.readthedocs.io/en/latest/documentation/#rml-12)** section.
+**[RDFLib](https://rdflib.readthedocs.io/en/stable/)** 7.x reads neither triple terms nor directional language-tagged strings. Materialize such mappings with `materialize_set`, or write the knowledge graph to a file. See the **[RML 1.2](https://morph-kgc.readthedocs.io/en/latest/rml/#triple-terms-and-reification)** section.
 
 #### I installed Morph-KGC but I get an error saying some dependency is missing
 To use relational databases, some data files and the [Jelly](https://w3id.org/jelly/) output format it is required to install additional dependencies. You can check specific configuration options in **[Advanced Setup](https://morph-kgc.readthedocs.io/en/latest/documentation/#advanced-setup)**.

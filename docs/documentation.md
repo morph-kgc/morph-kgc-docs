@@ -103,7 +103,7 @@ q_res = graph.query(' SELECT DISTINCT ?classes WHERE { ?s a ?classes } ')
 
 {==
 
-*__Note:__ [RDFLib](https://rdflib.readthedocs.io/en/stable/) does not read [RDF 1.2](https://www.w3.org/TR/rdf12-concepts/) triple terms or directional language-tagged strings, hence `materialize` does not support the [RML 1.2](https://morph-kgc.readthedocs.io/en/latest/documentation/#rml-12) constructs that generate them. Use `materialize_set` or write the knowledge graph to a file instead.*
+*__Note:__ [RDFLib](https://rdflib.readthedocs.io/en/stable/) does not read [RDF 1.2](https://www.w3.org/TR/rdf12-concepts/) triple terms or directional language-tagged strings, hence `materialize` does not support the [RML 1.2](https://morph-kgc.readthedocs.io/en/latest/rml/#triple-terms-and-reification) constructs that generate them. Use `materialize_set` or write the knowledge graph to a file instead.*
 
 ==}
 
@@ -128,7 +128,7 @@ q_res = graph.query(' SELECT DISTINCT ?classes WHERE { ?s a ?classes } ')
 
 **`morph_kgc.materialize_set(config)`**
 
-Materialize the knowledge graph to a Python **Set of triples**. Each element is a serialized statement without its trailing ` .`, so this is the method to use for knowledge graphs that no RDF library reads back yet, such as those with [RML 1.2](https://morph-kgc.readthedocs.io/en/latest/documentation/#rml-12) triple terms.
+Materialize the knowledge graph to a Python **Set of triples**. Each element is a serialized statement without its trailing ` .`, so this is the method to use for knowledge graphs that no RDF library reads back yet, such as those with [RML 1.2](https://morph-kgc.readthedocs.io/en/latest/rml/#triple-terms-and-reification) triple terms.
 
 ``` python
 # create a Python Set with the triples
@@ -190,7 +190,7 @@ The execution of Morph-KGC can be **tuned** via the **`CONFIGURATION`** section 
 | **`literal_escaping_chars`**            | Set of characters to be escaped in the generation of literals. The set of characters must be separated by commas. The backslash is always escaped.                                                                                           | **Default:** _"_,_\n_,_\r_                                                                                                                                              |
 | **`safe_percent_encoding`**             | Set of ASCII characters that should not be percent encoded. All characters are encoded by default.                                                                                                                                           | **Example:** _:/_<br>**Default:**                                                                                                                                       |
 | **`udfs`**                              | File with Python user-defined functions to be called from _[RML-FNML](https://w3id.org/rml/fnml/spec)_.                                                                                                                                       | **Default:**                                                                                                                                                            |
-| **`state_dir`**                         | Directory the shared context of _[stateful functions](https://morph-kgc.readthedocs.io/en/latest/documentation/#stateful-functions)_ is persisted to. If it is not provided, a temporary directory is created and removed for every run.      | **Default:**                                                                                                                                                            |
+| **`state_dir`**                         | Directory the shared context of _[stateful functions](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation)_ is persisted to. If it is not provided, a temporary directory is created and removed for every run.      | **Default:**                                                                                                                                                            |
 | **`mapping_partitioning`**              | [Mapping partitioning](https://content.iospress.com/download/semantic-web/sw223135?id=semantic-web%2Fsw223135) algorithm to use. Mapping partitioning can also be disabled.                                                                  | **Valid:** _PARTIAL-AGGREGATIONS_, _MAXIMAL_, _no_, _false_, _off_, _0_<br>**Default:** _PARTIAL-AGGREGATIONS_                                                          |
 | **`infer_sql_datatypes`**               | Infer datatypes for relational databases. If a [datatypeable term map](https://www.w3.org/TR/r2rml/#dfn-datatypeable-term-map) has a _[rml:datatype](http://w3id.org/rml/datatype)_ property, then the datatype will not be inferred.         | **Valid:** _yes_, _no_, _true_, _false_, _on_, _off_, _1_, _0_<br>**Default:** _no_                                                                                     |
 | **`number_of_processes`**               | The number of processes to use. If _1_, Morph-KGC will use sequential processing (minimizing memory consumption), otherwise parallel processing is used (minimizing execution time).                                                         | **Default:** _2 * number of CPUs in the system_                                                                                                                         |
@@ -254,7 +254,7 @@ The properties to be specified for **data files** are listed below. **Remote** d
 
 ### Resources
 
-A **resource** is something the engine accesses while materializing, but that is not itself materialized: the **[SKOS](https://www.w3.org/TR/skos-reference/)** vocabulary a value is reconciled against, the **[SPARQL](https://www.w3.org/TR/sparql11-query/)** endpoint it is looked up in, the lookup table a **[stateful function](https://morph-kgc.readthedocs.io/en/latest/documentation/#stateful-functions)** of your own reads.
+A **resource** is something the engine accesses while materializing, but that is not itself materialized: the **[SKOS](https://www.w3.org/TR/skos-reference/)** vocabulary a value is reconciled against, the **[SPARQL](https://www.w3.org/TR/sparql11-query/)** endpoint it is looked up in, the lookup table a **[stateful function](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation)** of your own reads.
 
 Each one is declared in a **`[RESOURCE:<name>]`** section. The mapping only **names** the resource, while its location, credentials and access options stay in the configuration file. The same mapping therefore runs unchanged against a local copy of a vocabulary, a staging server or production.
 
@@ -271,7 +271,7 @@ The properties common to every resource type are listed below. `{ENV_VAR}` place
 
 |<div style="width:110px">Property</div>|Description|<div style="width:400px">Values</div>|
 |-------|-------|-------|
-|**`resource_type`**|The kind of resource. The built-in [reconciliation](https://morph-kgc.readthedocs.io/en/latest/documentation/#reconciliation) functions understand _SKOS_VOCABULARY_ and _SPARQL_ENDPOINT_; any other value is accepted for resource types declared by your own stateful functions.|**Example:** _SKOS_VOCABULARY_|
+|**`resource_type`**|The kind of resource. The built-in [reconciliation](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation) functions understand _SKOS_VOCABULARY_ and _SPARQL_ENDPOINT_; any other value is accepted for resource types declared by your own stateful functions.|**Example:** _SKOS_VOCABULARY_|
 |**`url`**|Where the resource is downloaded from, or the endpoint queried. A local path is read from disk.|**Example:** _https://example.org/vocabulary/disease_|
 |**`iri`**|The IRI identifying the resource, when it differs from `url`. A mapping may name the resource by it.|**Default:**|
 |**`username`**, **`password`**|[HTTP Basic Authentication](https://datatracker.ietf.org/doc/html/rfc7617) credentials.|**Default:**|
@@ -381,327 +381,6 @@ docker run -v $(pwd)/files:/app/files morph-kgc files/config.ini
 ```
 
 This will mount the local directory to `/app/files` within the container and execute the application using the provided configuration file.
-
-## RML Reference
-
-Morph-KGC is compliant with the W3C Recommendation **[RDB to RDF Mapping Language (R2RML)](https://www.w3.org/TR/r2rml/)** and the **[RDF Mapping Language (RML)](https://w3id.org/rml/core/spec)**. You can refer to their associated specifications to consult the syntaxes.
-
-The current **[RML](https://w3id.org/rml/core/spec)** namespace is `http://w3id.org/rml/`. Mappings written against the legacy `http://semweb.mmlab.be/ns/rml#`, `http://semweb.mmlab.be/ns/ql#` and `http://semweb.mmlab.be/ns/fnml#` namespaces are translated on load, so they keep working.
-
-### RML-FNML
-
-Declarative **transformation functions** are supported via **[RML-FNML](https://w3id.org/rml/fnml/spec)**. Morph-KGC comes with a subset of the **[GREL functions](http://users.ugent.be/~bjdmeest/function/grel.ttl#)** as **built-in functions** that can be directly used from the mappings. A function call is written with _rml:functionExecution_, and its arguments are bound with _rml:input_, _rml:parameter_ and either _rml:inputValueMap_ (a value taken from the data) or _rml:inputValue_ (a constant).
-
-``` turtle
-<#TM1>
-    rml:logicalSource [
-        rml:source "student.csv";
-        rml:referenceFormulation rml:CSV;
-    ];
-    rml:subjectMap [
-        rml:template "http://example.com/{Name}";
-    ];
-    rml:predicateObjectMap [
-        rml:predicate foaf:name;
-        rml:objectMap [
-            rml:functionExecution <#Execution>;
-        ];
-    ].
-
-<#Execution>
-    rml:function grel:toUpperCase;
-    rml:input [
-        rml:parameter grel:valueParam;
-        rml:inputValueMap [
-            rml:reference "Name";
-        ];
-    ].
-```
-
-The complete set of **built-in functions** can be consulted [here](https://github.com/morph-kgc/morph-kgc/tree/main/src/morph_kgc/functions/grel).
-
-#### User-Defined Functions
-
-Python **user-defined functions** are additionally supported. A Python script with **user-defined functions** is provided to Morph-KGC via the `udfs` parameter. Decorators for these functions must be defined to link the **Python** parameters to the **FNML** parameters. An example of a **user-defined function**:
-
-``` python
-@udf(
-    fun_id='http://example.com/toUpperCase',
-    text='http://users.ugent.be/~bjdmeest/function/grel.ttl#valueParam')
-def to_upper_case(text):
-    return text.upper()
-```
-
-Returning `None` generates no triple for that row.
-
-#### Stateful Functions
-
-Some transformations need something that is expensive to build: an HTTP lookup, a database query, a large file read. Paying for it once per row is what makes a function slow, not the transformation itself.
-
-A **stateful function** declares an **initializer**: a callable run exactly **once**, before any triple is materialized, whose return value becomes a shared, immutable **context** reused by every invocation of the function. The context is persisted to disk (see the `state_dir` [configuration property](https://morph-kgc.readthedocs.io/en/latest/documentation/#engine-configuration)), so the worker processes read it back instead of rebuilding it. Whatever an initializer returns must therefore be **picklable**.
-
-The initializer takes either no argument, or the initialization context the engine builds for it, which exposes the configuration of the run, the [resources](https://morph-kgc.readthedocs.io/en/latest/documentation/#resources) the mapping references and the constant values it binds. The shared context reaches the transformation function as the `context` keyword argument.
-
-``` python
-import csv
-import io
-
-from morph_kgc.http import fetch
-
-
-def load_country_codes(initialization):
-    # only the resources the mapping actually names are accessed
-    resources = initialization.resources('urn:morph:function:resource')
-
-    codes = {}
-    for resource in resources.values():
-        # fetch() reads local paths and URLs alike, with HTTP Basic
-        # Authentication when the resource declares credentials
-        response = fetch(
-            resource.get_url(),
-            username=resource.get_username(),
-            password=resource.get_password(),
-        )
-        for row in csv.DictReader(io.StringIO(response.body.decode('utf-8'))):
-            codes[row['code']] = row['name']
-
-    return codes
-
-
-@stateful_udf(
-    fun_id='http://example.com/function/countryName',
-    initializer=load_country_codes,
-    code='http://users.ugent.be/~bjdmeest/function/grel.ttl#valueParam',
-    resource='urn:morph:function:resource')
-def country_name(code, context, resource=None):
-    return context.get(code)
-```
-
-The resource this function reads is declared in the configuration file, next to the `udfs` property that points at the script:
-
-``` ini
-[CONFIGURATION]
-udfs: /path/to/stateful_udfs.py
-
-[RESOURCE:country_codes]
-resource_type: CSV_FILE
-url: https://example.org/country-codes.csv
-username: {COUNTRY_CODES_USER}
-password: {COUNTRY_CODES_PASSWORD}
-```
-
-#### Reconciliation
-
-**Reconciliation** maps a value of the input data to the concept it identifies in a controlled vocabulary. Morph-KGC ships two **stateful** built-in functions for it:
-
-| Function                                                        | Reconciles against                             |
-|-----------------------------------------------------------------|------------------------------------------------|
-| _urn:morph:function:reconciliation:reconcileVocabularyConcept_  | a **[SKOS](https://www.w3.org/TR/skos-reference/)** vocabulary fetched from a URL |
-| _urn:morph:function:reconciliation:reconcileSPARQLConcept_      | the concepts held by a **[SPARQL](https://www.w3.org/TR/sparql11-query/)** endpoint |
-
-The vocabulary is downloaded (or the endpoint queried) a **single time**, before any triple is materialized, and the resulting index is shared by every mapping rule and every worker process. No repeated request is made while generating triples.
-
-The parameters of both functions are the following:
-
-|<div style="width:170px">Parameter</div>|Description|
-|-------|-------|
-|_grel:valueParam_|The value to reconcile.|
-|_morph-fn:resource_|Name of the `[RESOURCE:<name>]` section to reconcile against. It may be omitted when a single resource of the right type is declared. _morph-fn:vocabularyIRI_ and _morph-fn:endpointIRI_ are accepted spellings, and also accept the IRI identifying the resource.|
-|_morph-fn:attributeIRI_|The vocabulary property (or properties) the value is matched against, e.g. _skos:prefLabel_. Bind it several times to match against several: they are matched as a union, since RDF puts no order on the values of a property. _grel:attributeIRI_ is accepted as well.|
-
-A value matching **no** concept yields no triple. A value matching **several** concepts yields one triple per matched concept.
-
-``` turtle
-@prefix morph-fr: <urn:morph:function:reconciliation:> .
-@prefix morph-fn: <urn:morph:function:> .
-
-<#PatientsMapping>
-    a rml:TriplesMap;
-    rml:logicalSource [
-        rml:source "patients.csv";
-        rml:referenceFormulation rml:CSV;
-    ];
-    rml:subjectMap [
-        rml:template "https://example.org/kg/patient/{pid}";
-    ];
-    rml:predicateObjectMap [
-        rml:predicate sio:SIO_000255;
-        rml:objectMap [
-            rml:functionExecution <#DiseaseReconciliationExecution>;
-            rml:termType rml:IRI;
-        ];
-    ].
-
-<#DiseaseReconciliationExecution>
-    rml:function morph-fr:reconcileVocabularyConcept;
-    rml:input [
-        rml:parameter morph-fn:resource;
-        rml:inputValue "disease_vocabulary";
-    ];
-    rml:input [
-        rml:parameter grel:valueParam;
-        rml:inputValueMap [ rml:reference "disease_label" ];
-    ];
-    rml:input [
-        rml:parameter morph-fn:attributeIRI;
-        rml:inputValue skos:prefLabel, skos:altLabel;
-    ].
-```
-
-Reconciling against a **[SPARQL](https://www.w3.org/TR/sparql11-query/)** endpoint instead changes only the [resource section](https://morph-kgc.readthedocs.io/en/latest/documentation/#resources) and the function the mapping calls. A complete runnable example is available in the **[`reconciliation`](https://github.com/morph-kgc/morph-kgc/tree/main/examples/reconciliation)** directory.
-
-### RML 1.2
-
-**[RML 1.2](https://w3id.org/rml/core/spec)** aligns RML with the **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)** triple terms and reifying triples, replacing the quoted triples of RML-star. A **triple-term map** is placed at an object map with _rml:tripleTermMap_, pointing at the triples map that defines how the triple term is generated. Each predicate-object map of that triples map contributes its own triple term.
-
-``` turtle
-<#TMScore> a rml:TriplesMap;
-    rml:logicalSource [ rml:source "data.csv"; rml:referenceFormulation rml:CSV ];
-    rml:subjectMap [ rml:template "http://data.example.org/film/{id}" ];
-    rml:predicateObjectMap [
-        rml:predicate ex:score;
-        rml:objectMap [ rml:reference "score"; rml:datatype xsd:decimal ];
-    ].
-
-<#TMReif> a rml:TriplesMap;
-    rml:logicalSource [ rml:source "data.csv"; rml:referenceFormulation rml:CSV ];
-    rml:subjectMap [ rml:template "http://data.example.org/reification/{id}" ];
-    rml:predicateObjectMap [
-        rml:predicate rdf:reifies;
-        rml:objectMap [ rml:tripleTermMap <#TMScore> ];
-    ].
-```
-
-A triples map can be declared as _rml:NonAssertedTriplesMap_ if it is to be referenced from a triple-term map, but is not supposed to generate asserted triples in the output. A triple-term map may also carry an _rml:joinCondition_, joining the source of the triple term with the source of the rule that reifies it, and triple terms may be nested.
-
-The _rml:reifyingMap_ shortcut writes the same reification more compactly, from the reifying triples map:
-
-``` turtle
-<#TMReif> a rml:TriplesMap;
-    rml:logicalSource [ rml:source "data.csv"; rml:referenceFormulation rml:CSV ];
-    rml:subjectMap [ rml:template "http://data.example.org/reification/{id}" ];
-    rml:reifyingMap <#TMScore> .
-```
-
-**[RML 1.2](https://w3id.org/rml/core/spec)** also adds the **base direction** of language-tagged strings, with _rml:direction_ and _rml:directionMap_. The only valid directions are _ltr_ and _rtl_, and a direction without a language is invalid.
-
-``` turtle
-<#TMReview> a rml:TriplesMap;
-    rml:logicalSource [ rml:source "data.csv"; rml:referenceFormulation rml:CSV ];
-    rml:subjectMap [ rml:template "http://data.example.org/review/{id}" ];
-    rml:predicateObjectMap [
-        rml:predicate ex:label;
-        rml:objectMap [
-            rml:reference "text";
-            rml:languageMap [ rml:reference "lang" ];
-            rml:directionMap [ rml:reference "dir" ];
-        ];
-    ].
-```
-
-{==
-
-*__Note:__ [RDFLib](https://rdflib.readthedocs.io/en/stable/) 7.x reads neither triple terms (`<<( s p o )>>`) nor directional language-tagged strings (`"x"@en--ltr`), so mappings using these constructs must be materialized with `materialize_set` or written to a file, not with `materialize` or `materialize_oxigraph`.*
-
-==}
-
-### RML Views
-
-In addition to **[R2RML views](https://www.w3.org/TR/r2rml/#r2rml-views)**, Morph-KGC also supports **RML views** over tabular data (**[CSV](https://en.wikipedia.org/wiki/Comma-separated_values)** and **[Parquet](https://parquet.apache.org/documentation/latest/)** formats) and **[JSON](https://www.json.org)** files. RML views enable transformation functions, complex joins or mixed content using the **[SQL](https://duckdb.org/docs/sql/introduction)** query language. For instance, the following triples map takes as input a **[CSV](https://en.wikipedia.org/wiki/Comma-separated_values)** file and filters the data based on the language of some codes.
-
-``` turtle
-<#TM1>
-    rml:logicalSource [
-        rml:query """
-            SELECT "Code", "Name", "Lan"
-            FROM 'country.csv'
-            WHERE "Lan" = 'EN';
-        """
-    ];
-    rml:subjectMap [
-        rml:template "http://example.com/{Code}";
-    ];
-    rml:predicateObjectMap [
-        rml:predicate rdfs:label;
-        rml:objectMap [
-            rml:reference "Name";
-            rml:language "en";
-        ];
-    ].
-```
-
-Morph-KGC uses **[DuckDB](https://duckdb.org/)** to evaluate queries over tabular sources, the supported **[SQL](https://duckdb.org/docs/sql/introduction)** syntax can be consulted in its [documentation](https://duckdb.org/docs/sql/introduction). For views over **[JSON](https://www.json.org)** check the corresponding [JSON section in the DuckDB documentation](https://duckdb.org/docs/extensions/json.html) and [this blog post](https://duckdb.org/2023/03/03/json.html).
-
-### RML In-Memory
-
-Morph-KGC supports the definition of in-memory logical sources (**[Pandas DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)** and **[Python Dictionaries](https://docs.python.org/3/tutorial/datastructures.html#dictionaries)**) within RML using the **[SD Ontology](https://knowledgecaptureanddiscovery.github.io/SoftwareDescriptionOntology/release/1.8.0/index-en.html)**. The following **[RML](https://w3id.org/rml/core/spec)** rules show the transformation of a **[Pandas Dataframe](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html)** to **[RDF](https://www.w3.org/TR/rdf11-concepts/)**.
-
-``` turtle
-@prefix sd: <https://w3id.org/okn/o/sd#>.
-
-<#TM1>
-    rml:logicalSource [
-        rml:source [
-            a sd:DatasetSpecification;
-            sd:name "variable1";
-            sd:hasDataTransformation [
-                sd:hasSoftwareRequirements "pandas>=1.1.0";
-                sd:hasSourceCode [
-                    sd:programmingLanguage "Python3.9";
-                ];
-            ];   
-        ];
-        rml:referenceFormulation rml:DataFrame;
-    ];
-    rml:subjectMap [
-        rml:template "http://example.com/data/user{Id}";
-    ];
-    rml:predicateObjectMap [
-        rml:predicate rdf:type;
-        rml:objectMap [
-            rml:constant ex:User;
-        ];
-    ].
-```
-
-The above mappings can be executed from Python as follows:
-``` python
-import morph_kgc
-import pandas as pd
-
-users_df = pd.DataFrame({'Id': [1,2,3,4],\
-           'Username': ["@jude","@emily","@wayne","@jordan1"]})
-data_dict = {"variable1": users_df}
-
-config = """
-    [DataSource]
-    mappings = mapping_rml.ttl
-"""
-
-g_rdflib = morph_kgc.materialize(config, data_dict)
-```
-
-### YARRRML
-
-**[YARRRML](https://rml.io/yarrrml/spec/)** is a human-friendly serialization of [RML](https://w3id.org/rml/core/spec) that uses [YAML](https://yaml.org/). Morph-KGC supports [YARRRML](https://rml.io/yarrrml/spec/), also for [RML-FNML](https://w3id.org/rml/fnml/spec). The mapping below shows a [YARRRML](https://rml.io/yarrrml/spec/) example.
-
-``` yaml
-prefixes:
-  foaf: http://xmlns.com/foaf/0.1/
-  ex: http://example.com/
-  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
-  xsd: http://www.w3.org/2001/XMLSchema#
-
-mappings:
-  TM1:
-   sources:
-     - ['student.csv~csv']
-   s: http://example.com/$(Name)
-   po:
-     - [foaf:name, $(Name)]
-```
-
-The reference formulations accepted in the source shortcut are `csv`, `jsonpath`, `xpath`, `cypher`, `sql2008`, `geoparquet` and `shapefile`.
 
 ## Bootstrapping
 
