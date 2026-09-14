@@ -786,8 +786,7 @@ New mappings should use the current namespace and the RML 1.2 spellings shown on
 ## Where to Go Next
 
 - **[Documentation](https://morph-kgc.readthedocs.io/en/latest/documentation/)** — installing, configuring and running the engine.
-- **[RML-Core specification](https://w3id.org/rml/core/spec)** — the normative definition of the language.
-- **[RML-FNML specification](https://w3id.org/rml/fnml/spec)** — the normative definition of transformation functions.
+- **[RML portal](http://w3id.org/rml/portal/)** — the normative definition of the language.
 - **[YARRRML specification](https://rml.io/yarrrml/spec/)**.
 - **[Tutorial in Google Colaboratory](https://colab.research.google.com/drive/1ByFx_NOEfTZeaJ1Wtw3UwTH3H3-Sye2O?usp=sharing)** — a runnable notebook.
 - **[Examples](https://github.com/morph-kgc/morph-kgc/tree/main/examples)** — complete mappings for each kind of source.
