@@ -17,6 +17,8 @@
 
 ### Conferences
 
+- **[RML 1.2: Aligning RML with RDF 1.2 Triple Terms and Reifying Triples](https://sferrada.com/publication/2026-dmkg-rml-12/2026-dmkg-rml-12.pdf)**  
+**DMKG** | **2026** | Julián Arenas-Guerrero, Sebastián Ferrada, Sebastián Vergara, Olaf Hartig
 - **[Boosting Knowledge Graph Generation from Tabular Data with RML Views](https://2023.eswc-conferences.org/wp-content/uploads/2023/05/paper_Arenas-Guerrero_2023_Boosting.pdf)**  
 **ESWC** | **2023** | Julián Arenas-Guerrero, Ahmad Alobaid, María Navas-Loro, María S. Pérez, Oscar Corcho
 
