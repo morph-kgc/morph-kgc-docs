@@ -658,7 +658,7 @@ The third film produced **no triple**: a value matching no concept is dropped ra
 
 Some statements are about **other statements**: who said this, when, how confident are we. `films.csv` carries a rating, and a rating is only meaningful with its source attached.
 
-**[RML 1.2](https://w3id.org/rml/core/spec)** expresses this with the triple terms and reifying triples of **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)**. An object map with `rml:tripleTermMap` points at the triples map whose triple is being talked about:
+**[RML 1.2](https://sferrada.com/publication/2026-dmkg-rml-12/2026-dmkg-rml-12.pdf)** expresses this with the triple terms and reifying triples of **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)**. An object map with `rml:tripleTermMap` points at the triples map whose triple is being talked about:
 
 ``` turtle
 @prefix rml: <http://w3id.org/rml/> .

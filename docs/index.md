@@ -11,7 +11,7 @@
 - User-friendly mappings with **[YARRRML](https://rml.io/yarrrml/spec/)**.
 - Transformation functions with **[RML-FNML](https://w3id.org/rml/fnml/spec)**, including **Python UDFs**.
 - **Stateful functions** with a shared context loaded once, such as **reconciliation** against a [SKOS](https://www.w3.org/TR/skos-reference/) vocabulary or a [SPARQL](https://www.w3.org/TR/sparql11-query/) endpoint.
-- **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)** triple terms, reification and base direction with **[RML 1.2](https://w3id.org/rml/core/spec)**.
+- **[RDF 1.2](https://www.w3.org/TR/rdf12-concepts/)** triple terms, reification and base direction with **[RML 1.2](https://sferrada.com/publication/2026-dmkg-rml-12/2026-dmkg-rml-12.pdf)**.
 - **[RML views](https://2023.eswc-conferences.org/wp-content/uploads/2023/05/paper_Arenas-Guerrero_2023_Boosting.pdf)** over tabular data sources and [JSON](https://www.json.org) files.
 - **Bootstrapping** of mappings from relational schemas, following the **[Direct Mapping](https://www.w3.org/TR/rdb-direct-mapping/)**.
 - Integration with **[RDFLib](https://rdflib.readthedocs.io)** and **[Oxigraph](https://pyoxigraph.readthedocs.io/en/latest/)**.
