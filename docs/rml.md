@@ -33,10 +33,10 @@ Every example below maps this small film catalogue. Save the two files and you c
 `films.csv`:
 
 ``` csv
-id,title,year,rating,director
-1,Metropolis,1927,8.3,1
-2,M,1931,8.3,1
-3,Rashomon,1950,8.2,2
+id,title,year,rating,director,genre
+1,Metropolis,1927,8.3,1,Sci-Fi
+2,M,1931,8.3,1,Thriller
+3,Rashomon,1950,8.2,2,Drama
 ```
 
 `directors.csv`:
@@ -217,8 +217,9 @@ Whether an object comes out as an IRI or a literal follows from how it was built
 | **`rml:reference`** | Literal |
 | **`rml:template`** | IRI |
 | **`rml:constant`** | Whatever the constant is written as: an IRI if written as one, a literal if quoted |
+| **`rml:functionExecution`** | Literal |
 
-So a reference needs no annotation to become a literal, and a template needs none to become an IRI. Say so explicitly only when you want the other one:
+So a reference needs no annotation to become a literal, and a template needs none to become an IRI. A [function execution](https://morph-kgc.readthedocs.io/en/latest/rml/#transformation-functions) is a literal as well, so a function returning an identifier does need the annotation. Say so explicitly only when you want the other one:
 
 ``` turtle
 rml:objectMap [ rml:template "{title}-{year}" ; rml:termType rml:Literal ]
@@ -624,10 +625,39 @@ url: genres.ttl
 matching: EXACT
 ```
 
+`genres.ttl` defines `Science fiction` (also known as `Sci-Fi`) and `Thriller`:
+
 ``` turtle
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<http://example.com/genre/scifi> a skos:Concept ;
+    skos:prefLabel "Science fiction" ;
+    skos:altLabel "Sci-Fi" .
+
+<http://example.com/genre/thriller> a skos:Concept ;
+    skos:prefLabel "Thriller" .
+```
+
+``` turtle
+@prefix rml:      <http://w3id.org/rml/> .
+@prefix ex:       <http://example.com/> .
+@prefix grel:     <http://users.ugent.be/~bjdmeest/function/grel.ttl#> .
 @prefix morph-fr: <urn:morph:function:reconciliation:> .
 @prefix morph-fn: <urn:morph:function:> .
 @prefix skos:     <http://www.w3.org/2004/02/skos/core#> .
+
+<#FilmMapping> a rml:TriplesMap ;
+    rml:logicalSource [
+        rml:source "films.csv" ; rml:referenceFormulation rml:CSV
+    ] ;
+    rml:subjectMap [ rml:template "http://example.com/film/{id}" ] ;
+    rml:predicateObjectMap [
+        rml:predicate ex:genre ;
+        rml:objectMap [
+            rml:functionExecution <#GenreReconciliation> ;
+            rml:termType rml:IRI
+        ]
+    ] .
 
 <#GenreReconciliation>
     rml:function morph-fr:reconcileVocabularyConcept ;
@@ -645,14 +675,119 @@ matching: EXACT
     ] .
 ```
 
-Against a vocabulary that defines `Science fiction` (also known as `Sci-Fi`) and `Thriller`, a catalogue whose third film is a `Drama` reconciles like this:
-
 ``` ntriples
 <http://example.com/film/1> <http://example.com/genre> <http://example.com/genre/scifi> .
 <http://example.com/film/2> <http://example.com/genre> <http://example.com/genre/thriller> .
 ```
 
-The third film produced **no triple**: a value matching no concept is dropped rather than guessed at. A value matching several concepts produces one triple per match. Writing your own stateful function, and reconciling against a SPARQL endpoint instead, are covered under **[Reconciliation](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation)**.
+The third film, a `Drama`, produced **no triple**: a value matching no concept is dropped rather than guessed at. A value matching several concepts produces one triple per match.
+
+The `rml:termType rml:IRI` is what makes the reconciled concept an IRI: like every other function execution, the reconciliation functions return a **literal** by default.
+
+`morph-fn:resource` names the `[RESOURCE:<name>]` section to reconcile against, and may be omitted when a single resource of the right type is declared. `morph-fn:attributeIRI` is the vocabulary property the value is matched against; binding it several times matches against all of them, as a union. Whether a value has to match a label exactly is the `matching` option of the resource, not the mapping's business. All the options a resource takes are listed under **[Resources](https://morph-kgc.readthedocs.io/en/latest/documentation/#resources)**.
+
+#### Against a SPARQL Endpoint
+
+`morph-fr:reconcileSPARQLConcept` reconciles against the concepts held by a **[SPARQL](https://www.w3.org/TR/sparql11-query/)** endpoint instead of a vocabulary downloaded from a URL. The endpoint is queried **once**, for the whole materialization, and the mapping changes only in the function it calls:
+
+``` ini
+[RESOURCE:genres]
+resource_type: SPARQL_ENDPOINT
+url: https://example.org/sparql
+method: POST
+query: PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?concept ?attribute ?value WHERE {
+        ?concept skos:inScheme <http://example.com/genres> ;
+                 ?attribute ?value .
+        VALUES ?attribute { skos:prefLabel skos:altLabel }
+    }
+```
+
+``` turtle
+<#GenreReconciliation>
+    rml:function morph-fr:reconcileSPARQLConcept ;
+    rml:input [
+        rml:parameter morph-fn:resource ;
+        rml:inputValue "genres"
+    ] ;
+    rml:input [
+        rml:parameter grel:valueParam ;
+        rml:inputValueMap [ rml:reference "genre" ]
+    ] .
+```
+
+The `query` is optional: without it, every concept of the endpoint is indexed on the attributes the mapping matches against, or on the [SKOS](https://www.w3.org/TR/skos-reference/) labelling properties when it names none. With it, the index is kept to the concepts that matter, which is what makes reconciling against a large endpoint practical.
+
+#### Stateful Functions of Your Own
+
+Any user-defined function can be given a shared context in the same way, with **`@stateful_udf`**. It declares an **initializer**: a callable run once, before any triple is materialized, whose return value is handed to every invocation of the function as the `context` argument. The context is persisted to disk and read back by the worker processes, so whatever the initializer returns must be **picklable**.
+
+The resources the function accesses are declared in the configuration file, exactly as the reconciliation ones are:
+
+``` ini
+[CONFIGURATION]
+udfs: udfs.py
+
+[RESOURCE:directors]
+resource_type: CSV_FILE
+url: directors.csv
+```
+
+``` python
+import csv
+import io
+
+from morph_kgc.http import fetch
+
+
+def load_directors(initialization):
+    directors = {}
+    for resource in initialization.resources('urn:morph:function:resource').values():
+        # fetch() reads local paths and URLs alike, with HTTP Basic
+        # Authentication when the resource declares credentials
+        response = fetch(resource.get_url(),
+                         username=resource.get_username(),
+                         password=resource.get_password())
+        for row in csv.DictReader(io.StringIO(response.body.decode('utf-8'))):
+            directors[row['id']] = row['name']
+    return directors
+
+
+@stateful_udf(
+    fun_id='http://example.com/function/directorName',
+    initializer=load_directors,
+    code='http://users.ugent.be/~bjdmeest/function/grel.ttl#valueParam',
+    resource='urn:morph:function:resource')
+def director_name(code, context, resource=None):
+    return context.get(code)
+```
+
+``` turtle
+<#DirectorName>
+    rml:function <http://example.com/function/directorName> ;
+    rml:input [
+        rml:parameter morph-fn:resource ;
+        rml:inputValue "directors"
+    ] ;
+    rml:input [
+        rml:parameter grel:valueParam ;
+        rml:inputValueMap [ rml:reference "director" ]
+    ] .
+```
+
+``` ntriples
+<http://example.com/film/1> <http://example.com/directorName> "Fritz Lang" .
+<http://example.com/film/2> <http://example.com/directorName> "Fritz Lang" .
+<http://example.com/film/3> <http://example.com/directorName> "Akira Kurosawa" .
+```
+
+An initializer takes either no argument or the initialization context the engine builds for it, which exposes the configuration of the run (`config`), the function being initialized (`function_iri`), the constants the mapping binds to given parameter IRIs (`constants(...)`), and the declared resources the mapping names through them (`resource(...)`, `resources(...)`). Only the resources the mapping actually names are accessed.
+
+{==
+
+*__Note:__ the shared context is persisted to a temporary directory that is created and removed for every run. Set `state_dir` in the **[engine configuration](https://morph-kgc.readthedocs.io/en/latest/documentation/#engine-configuration)** to keep it somewhere of your own instead.*
+
+==}
 
 ## Triple Terms and Reification
 

@@ -84,6 +84,16 @@ config = {
 }
 ```
 
+Every method takes an optional **second argument**: a dictionary with the **in-memory data structures** the mapping reads ([DataFrames](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html), dictionaries, lists, tuples and [JSON](https://www.json.org) strings), keyed by the name the logical sources give them. See **[In-Memory Data](https://morph-kgc.readthedocs.io/en/latest/rml/#in-memory-data)**.
+
+``` python
+import pandas as pd
+
+films_df = pd.DataFrame({'id': [1, 2], 'title': ['Metropolis', 'M']})
+
+graph = morph_kgc.materialize(config, {'films': films_df})
+```
+
 #### [RDFLib](https://rdflib.readthedocs.io/en/stable/)
 
 **`morph_kgc.materialize(config)`**
@@ -187,15 +197,15 @@ The execution of Morph-KGC can be **tuned** via the **`CONFIGURATION`** section 
 | **`output_dir`**                        | Directory to write the resulting knowledge graph to. If it is specified, `output_file` will be ignored and multiple output files will be generated, one for each mapping partition.                                                             | **Default:**                                                                                                                                                            |
 | **`output_format`**                     | RDF serialization to use for the resulting knowledge graph.                                                                                                                                                                                  | **Valid:** _[N-TRIPLES](https://www.w3.org/TR/n-triples/)_, _[N-QUADS](https://www.w3.org/TR/n-quads/)_, _[JELLY](https://w3id.org/jelly/)_<br>**Default:** _[N-TRIPLES](https://www.w3.org/TR/n-triples/)_ |
 | **`na_values`**                         | Set of values to be interpreted as _NULL_ when retrieving data from the input sources. The set of values must be separated by commas.                                                                                                        | **Default:** ,_nan_                                                                                                                                                     |
-| **`literal_escaping_chars`**            | Set of characters to be escaped in the generation of literals. The set of characters must be separated by commas. The backslash is always escaped.                                                                                           | **Default:** _"_,_\n_,_\r_                                                                                                                                              |
+| **`literal_escaping_chars`**            | Additional set of characters to be escaped in the generation of literals. The set of characters must be separated by commas. The backslash, the double quote, the line feed and the carriage return are always escaped.                                                                                           | **Default:** _"_,_\n_,_\r_                                                                                                                                              |
 | **`safe_percent_encoding`**             | Set of ASCII characters that should not be percent encoded. All characters are encoded by default.                                                                                                                                           | **Example:** _:/_<br>**Default:**                                                                                                                                       |
 | **`udfs`**                              | File with Python user-defined functions to be called from _[RML-FNML](https://w3id.org/rml/fnml/spec)_.                                                                                                                                       | **Default:**                                                                                                                                                            |
-| **`state_dir`**                         | Directory the shared context of _[stateful functions](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation)_ is persisted to. If it is not provided, a temporary directory is created and removed for every run.      | **Default:**                                                                                                                                                            |
+| **`state_dir`**                         | Directory the shared context of _[stateful functions](https://morph-kgc.readthedocs.io/en/latest/rml/#stateful-functions-of-your-own)_ is persisted to. If it is not provided, a temporary directory is created and removed for every run.      | **Default:**                                                                                                                                                            |
 | **`mapping_partitioning`**              | [Mapping partitioning](https://content.iospress.com/download/semantic-web/sw223135?id=semantic-web%2Fsw223135) algorithm to use. Mapping partitioning can also be disabled.                                                                  | **Valid:** _PARTIAL-AGGREGATIONS_, _MAXIMAL_, _no_, _false_, _off_, _0_<br>**Default:** _PARTIAL-AGGREGATIONS_                                                          |
 | **`infer_sql_datatypes`**               | Infer datatypes for relational databases. If a [datatypeable term map](https://www.w3.org/TR/r2rml/#dfn-datatypeable-term-map) has a _[rml:datatype](http://w3id.org/rml/datatype)_ property, then the datatype will not be inferred.         | **Valid:** _yes_, _no_, _true_, _false_, _on_, _off_, _1_, _0_<br>**Default:** _no_                                                                                     |
 | **`number_of_processes`**               | The number of processes to use. If _1_, Morph-KGC will use sequential processing (minimizing memory consumption), otherwise parallel processing is used (minimizing execution time).                                                         | **Default:** _2 * number of CPUs in the system_                                                                                                                         |
 | **`logging_level`**                     | Sets the [level](https://docs.python.org/3/library/logging.html#logging-levels) of the log messages to show.                                                                                                                                 | **Valid:** _DEBUG_, _INFO_, _WARNING_, _ERROR_, _CRITICAL_, _NOTSET_<br>**Default:** _INFO_                                                                             |
-| **`logging_file`**                      | If not provided, log messages will be redirected to _stdout_. If a file path is provided, log messages will be written to the file.                                                                                                          | **Default:**                                                                                                                                                            |
+| **`logging_file`**                      | If not provided, log messages will be redirected to _stderr_. If a file path is provided, log messages will be written to the file.                                                                                                          | **Default:**                                                                                                                                                            |
 
 {==
 
@@ -215,7 +225,7 @@ One data source section should be included in the **[INI file](https://en.wikipe
 
 #### Relational Databases
 
-The properties to be specified for **relational databases** are listed below. All of the properties are **required**.
+The properties to be specified for **relational databases** are listed below. `mappings` and `db_url` are **required**.
 
 |<div style="width:100px">Property</div>|Description|<div style="width:475px">Values</div>|
 |-------|-------|-------|
@@ -254,7 +264,7 @@ The properties to be specified for **data files** are listed below. **Remote** d
 
 ### Resources
 
-A **resource** is something the engine accesses while materializing, but that is not itself materialized: the **[SKOS](https://www.w3.org/TR/skos-reference/)** vocabulary a value is reconciled against, the **[SPARQL](https://www.w3.org/TR/sparql11-query/)** endpoint it is looked up in, the lookup table a **[stateful function](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation)** of your own reads.
+A **resource** is something the engine accesses while materializing, but that is not itself materialized: the **[SKOS](https://www.w3.org/TR/skos-reference/)** vocabulary a value is reconciled against, the **[SPARQL](https://www.w3.org/TR/sparql11-query/)** endpoint it is looked up in, the lookup table a **[stateful function](https://morph-kgc.readthedocs.io/en/latest/rml/#stateful-functions-of-your-own)** of your own reads.
 
 Each one is declared in a **`[RESOURCE:<name>]`** section. The mapping only **names** the resource, while its location, credentials and access options stay in the configuration file. The same mapping therefore runs unchanged against a local copy of a vocabulary, a staging server or production.
 
@@ -271,12 +281,12 @@ The properties common to every resource type are listed below. `{ENV_VAR}` place
 
 |<div style="width:110px">Property</div>|Description|<div style="width:400px">Values</div>|
 |-------|-------|-------|
-|**`resource_type`**|The kind of resource. The built-in [reconciliation](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation) functions understand _SKOS_VOCABULARY_ and _SPARQL_ENDPOINT_; any other value is accepted for resource types declared by your own stateful functions.|**Example:** _SKOS_VOCABULARY_|
+|**`resource_type`**|The kind of resource. The built-in [reconciliation](https://morph-kgc.readthedocs.io/en/latest/rml/#reconciliation) functions understand _SKOS_VOCABULARY_ and _SPARQL_ENDPOINT_; any other value is accepted for resource types declared by your own [stateful functions](https://morph-kgc.readthedocs.io/en/latest/rml/#stateful-functions-of-your-own).|**Example:** _SKOS_VOCABULARY_|
 |**`url`**|Where the resource is downloaded from, or the endpoint queried. A local path is read from disk.|**Example:** _https://example.org/vocabulary/disease_|
 |**`iri`**|The IRI identifying the resource, when it differs from `url`. A mapping may name the resource by it.|**Default:**|
 |**`username`**, **`password`**|[HTTP Basic Authentication](https://datatracker.ietf.org/doc/html/rfc7617) credentials.|**Default:**|
 |**`matching`**|How a value is matched against the indexed ones. _CASE-INSENSITIVE_ also collapses whitespace.|**Valid:** _EXACT_, _CASE-INSENSITIVE_<br>**Default:** _EXACT_|
-|**`attributes`**|Comma-separated attributes to index when the mapping names none.|**Default:** the [SKOS](https://www.w3.org/TR/skos-reference/) labelling properties|
+|**`attributes`**|Comma-separated attributes to index when the mapping names none.|**Default:** every property with a literal value, for a vocabulary; the [SKOS](https://www.w3.org/TR/skos-reference/) labelling properties, for an endpoint|
 |**`timeout`**|Seconds to wait for the resource.|**Default:** _30_|
 
 Only for **`SKOS_VOCABULARY`**:
@@ -289,7 +299,7 @@ Only for **`SPARQL_ENDPOINT`**:
 
 |<div style="width:110px">Property</div>|Description|<div style="width:400px">Values</div>|
 |-------|-------|-------|
-|**`query`**|The SELECT query the index is built from. It defaults to a query over the [SKOS](https://www.w3.org/TR/skos-reference/) labelling properties.|**Default:**|
+|**`query`**|The SELECT query the index is built from. It defaults to a query over every concept of the endpoint, on the attributes the mapping matches against or, when it names none, on the [SKOS](https://www.w3.org/TR/skos-reference/) labelling properties.|**Default:**|
 |**`method`**|HTTP method used to query the endpoint.|**Valid:** _GET_, _POST_<br>**Default:** _GET_|
 |**`concept_variable`**, **`attribute_variable`**, **`value_variable`**|Names of the variables projected by the query.|**Default:** _concept_, _attribute_, _value_|
 

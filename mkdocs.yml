@@ -30,17 +30,17 @@ theme:
         name: Switch to light mode
   font: false
   features:
-      navigation.instant
-      navigation.tracking
-      navigation.sections
-      navigation.expand
-      navigation.tabs
-      navigation.indexes
-      toc.integrate
-      toc.follow
-      content.code.copy
-      content.code.select
-      content.code.annotate
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.tabs
+    - navigation.indexes
+    - toc.integrate
+    - toc.follow
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
 
 extra:
   social:
