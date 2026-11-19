@@ -145,7 +145,7 @@ _:screening3 <http://example.com/of> <http://example.com/film/3> .
 
 {==
 
-*__Note:__ values interpolated into a template that produces an **IRI** are **percent-encoded**, so a title containing a space or a slash still yields a valid IRI. A template that produces a literal is filled in as is. Set `safe_percent_encoding` in the [engine configuration](https://morph-kgc.readthedocs.io/en/latest/documentation/#engine-configuration) to exempt characters you want to keep literal.*
+*__Note:__ values interpolated into a template that produces an **IRI** are **percent-encoded**, so a title containing a space or a slash still yields a valid IRI. Set `safe_percent_encoding` in the [engine configuration](https://morph-kgc.readthedocs.io/en/latest/documentation/#engine-configuration) to exempt characters you want to keep literal. A **blank node** label keeps its ASCII letters, digits and `-`, and every other character is encoded as `_` followed by the hex digits of its UTF-8 bytes: `person {name}` with `Ann Lee` gives `_:person_20Ann_20Lee`, and distinct values never share a blank node. A template that produces a literal is filled in as is.*
 
 ==}
 
