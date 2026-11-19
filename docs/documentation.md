@@ -42,7 +42,7 @@ Installing Morph-KGC puts the **`morph-kgc`** command on your path. To run the e
 morph-kgc path/to/config.ini
 ```
 
-Running the package as a module is equivalent, and is what the [Docker](https://morph-kgc.readthedocs.io/en/latest/documentation/#docker) image does:
+Running the package as a module is equivalent:
 
 ``` bash
 python -m morph_kgc path/to/config.ini
@@ -458,40 +458,6 @@ XPath 3.0 is used for the iterator of XML files, while the references of their t
 *__Note:__ [Jelly](https://w3id.org/jelly/) is serialized in one shot rather than streamed partition by partition, so materializing to it holds the whole knowledge graph in memory. It is written by the [command line](https://morph-kgc.readthedocs.io/en/latest/documentation/#command-line) to a single file, `output_file` with the _.jelly_ extension (inside `output_dir`, if it is given). [Graph maps](https://morph-kgc.readthedocs.io/en/latest/rml/#named-graphs) are not used, as with N-Triples. Since the graph is built with [RDFLib](https://rdflib.readthedocs.io/en/stable/), the [RML 1.2](https://morph-kgc.readthedocs.io/en/latest/rml/#triple-terms-and-reification) triple terms and directional language-tagged strings cannot be written to Jelly. The [library](https://morph-kgc.readthedocs.io/en/latest/documentation/#library) methods return a graph or a set of triples instead.*
 
 ==}
-
-## Docker
-
-You can also use Morph-KGC with the provided [Dockerfile](https://github.com/morph-kgc/morph-kgc/blob/main/Dockerfile).
-
-{==
-
-*__Note:__ the Dockerfile currently builds on a Python 3.9 image, while Morph-KGC requires Python 3.10 or later, so the image it builds does not run: change its base image to `python:3.12-slim` or later before building it.*
-
-==}
-
-### Image Building
-
-Build the container as follows:
-
-``` bash
-docker build -t morph-kgc .
-```
-
-To include optional dependencies, use the `optional_dependencies` option as follows:
-
-``` bash
-docker build -t morph-kgc --build-arg optional_dependencies="sqlite,jelly" .
-```
-
-### Execution
-
-The container is designed to mount a local directory containing the required files. To run the container, use the following command, replacing `$(pwd)/files` with the path to the local directory containing your files:
-
-```bash
-docker run -v $(pwd)/files:/app/files morph-kgc files/config.ini
-```
-
-This will mount the local directory to `/app/files` within the container and execute the application using the provided configuration file.
 
 ## Bootstrapping
 
